@@ -17,12 +17,26 @@ def create_app():
          resources={r"/api/*": {"origins": "*"}},
          allow_headers=["Content-Type", "Authorization"],
          methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-         supports_credentials=True)"""
+         supports_credentials=True)
 
     CORS(app, origins=[
     "http://localhost:5173",
     "https://frontend-fraud-finder-tzle.vercel.app"
-    ], supports_credentials=True)
+    ], supports_credentials=True)"""
+
+    CORS(app, 
+         resources={r"/api/*": {
+             "origins": [
+                 "http://localhost:5173",
+                 "https://frontend-fraud-finder.vercel.app",
+                 
+                 "https://*.vercel.app"  # Allow all Vercel preview deployments
+             ],
+             "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+             "allow_headers": ["Content-Type", "Authorization", "Authentication-Token"],
+             "supports_credentials": True,
+             "expose_headers": ["Authentication-Token"]
+         }})
     
     db.init_app(app)
     datastore = SQLAlchemyUserDatastore(db, User, Role)
