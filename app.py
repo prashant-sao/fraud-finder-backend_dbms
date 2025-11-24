@@ -28,7 +28,7 @@ def create_app():
          resources={r"/api/*": {
              "origins": [
                  "http://localhost:5173",
-                 "https://frontend-fraud-finder.vercel.app",
+                 "https://frontend-fraud-finder-he66.vercel.app",
                  
                  "https://*.vercel.app"  # Allow all Vercel preview deployments
              ],
